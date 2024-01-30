@@ -33,38 +33,38 @@ WORKDIR /root
 COPY iree/torch-mlir torch-mlir
 COPY iree/integrations/tensorflow/python_projects/iree_tf iree_tf
 
-# install torch-mlir
-WORKDIR /root/torch-mlir
+# # install torch-mlir
+# WORKDIR /root/torch-mlir
+# RUN pip install --upgrade pip
+# RUN python -m pip install -r requirements.txt
+# RUN python -m pip install -r torchvision-requirements.txt
+# RUN mkdir -p build
+# RUN cmake -GNinja -Bbuild \
+#   -DCMAKE_BUILD_TYPE=Release \
+#   -DPython3_FIND_VIRTUALENV=ONLY \
+#   -DLLVM_ENABLE_PROJECTS=mlir \
+#   -DLLVM_EXTERNAL_PROJECTS="torch-mlir" \
+#   -DLLVM_EXTERNAL_TORCH_MLIR_SOURCE_DIR="$PWD" \
+#   -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
+#   -DLLVM_TARGETS_TO_BUILD=host \
+#   externals/llvm-project/llvm
+# RUN cmake --build build --target tools/torch-mlir/all
+# RUN cmake --build build --target install
+
+# ENV PYTHONPATH=/root/torch-mlir/build/tools/torch-mlir/python_packages/torch_mlir:/root/torch-mlir/projects/pt1/examples
+
+# install torch-mlir torchvison
 RUN pip install --upgrade pip
-RUN python -m pip install -r requirements.txt
-RUN python -m pip install -r torchvision-requirements.txt
-RUN mkdir -p build
-RUN cmake -GNinja -Bbuild \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DPython3_FIND_VIRTUALENV=ONLY \
-  -DLLVM_ENABLE_PROJECTS=mlir \
-  -DLLVM_EXTERNAL_PROJECTS="torch-mlir" \
-  -DLLVM_EXTERNAL_TORCH_MLIR_SOURCE_DIR="$PWD" \
-  -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
-  -DLLVM_TARGETS_TO_BUILD=host \
-  externals/llvm-project/llvm
-RUN cmake --build build --target tools/torch-mlir/all
-RUN cmake --build build --target install
-
-ENV PYTHONPATH=/root/torch-mlir/build/tools/torch-mlir/python_packages/torch_mlir:/root/torch-mlir/projects/pt1/examples
-
-## install torch-mlir torchvison
-#RUN pip install --upgrade pip
-#RUN pip install --pre torch-mlir torchvision \
-#  -f https://llvm.github.io/torch-mlir/package-index/ \
-#  --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+RUN pip install --pre torch-mlir torchvision \
+ -f https://llvm.github.io/torch-mlir/package-index/ \
+ --extra-index-url https://download.pytorch.org/whl/nightly/cpu
 
 # install transformers
 RUN pip install transformers
 
 # install iree-import-tf
-#RUN pip install tf-nightly
-#RUN pip install /root/iree_tf
+RUN pip install tf-nightly
+RUN pip install /root/iree_tf
 
 RUN /root/miniconda3/bin/conda init bash
 RUN echo "conda activate py3_11" >> ~/.bashrc

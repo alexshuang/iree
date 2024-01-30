@@ -42,15 +42,13 @@ np.save(img_file, img.numpy())
 target_models = {
         "resnet18": models.resnet18,
         "mobilenet_v2": models.mobilenet_v2,
-
-        # optional
-        #"mobilenet_v3": models.mobilenet_v3_small,
-        #"MNASNet": models.mnasnet0_5,
-        #"regnet": models.regnet_y_400mf,
-        #"resnext": models.resnext50_32x4d,
-        #"shufflenet": models.shufflenet_v2_x0_5,
-        #"regnet": models.regnet_y_400mf,
-        #"squeezenet": models.squeezenet1_0,
+        "mobilenet_v3": models.mobilenet_v3_small,
+        "MNASNet": models.mnasnet0_5,
+        "regnet": models.regnet_y_400mf,
+        "resnext": models.resnext50_32x4d,
+        "shufflenet": models.shufflenet_v2_x0_5,
+        "regnet": models.regnet_y_400mf,
+        "squeezenet": models.squeezenet1_0,
 
         # convert failed
         #"efficientnet_v2": models.efficientnet_v2_s
