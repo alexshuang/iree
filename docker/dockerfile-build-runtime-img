@@ -30,7 +30,6 @@ RUN /root/miniconda3/bin/conda create -n py3_11 python=3.11
 SHELL ["/root/miniconda3/bin/conda", "run", "-n", "py3_11", "/bin/bash", "-c"]
 
 WORKDIR /root
-COPY iree/torch-mlir torch-mlir
 COPY iree/integrations/tensorflow/python_projects/iree_tf iree_tf
 
 # # install torch-mlir
@@ -63,7 +62,7 @@ RUN pip install --pre torch-mlir torchvision \
 RUN pip install transformers
 
 # install iree-import-tf
-RUN pip install tf-nightly
+RUN pip install tf-nightly==2.16.0.dev20240126
 RUN pip install /root/iree_tf
 
 RUN /root/miniconda3/bin/conda init bash
